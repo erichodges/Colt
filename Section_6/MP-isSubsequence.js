@@ -47,3 +47,5 @@ function isSubsequence(str1, str2) {
 console.log(isSubsequence('sing', 'sting')); // true
 // isSubsequence('abc', 'abracadabra'); // true
 // isSubsequence('abc', 'acb'); // false (order matters)
+
+
