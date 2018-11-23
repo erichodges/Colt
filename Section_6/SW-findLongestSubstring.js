@@ -39,12 +39,12 @@
 
 function findLongestSubstring(str) {
   let map = {}
-  let start = 0
-  let maxLen = 0
-  let arr = str.split('')
+  let start = 0;
+  let maxLen = 0;
+  let arr = str.split('');
 
   for (i = 0; i < str.length; i++) {
-    let current = map[arr[i]]
+    let current = map[arr[i]];
     if (current != null && start <= current) {
         start = current + 1
     } else {
