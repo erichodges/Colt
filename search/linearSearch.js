@@ -1,8 +1,19 @@
-function linearSearch(arr, val) {
-  for(var i = 0; i < arr.length; i++) {
-    if(arr[i] === val) return i;
+function linearSearch(arr, item) {
+  for (let i = 0; i < arr.length; i++) {
+    if (arr[i] === item) return i; 
   }
   return -1;
 }
 
-console.log(linearSearch([34,56,1,2,3], 1));
+// Time O(n) which is the worst case where the item was at the end of the array.
+// Average Time is O(n).
+// If the item is found right away, which is the best case, Time is O(1).
+
+// function linearSearch(arr, item) {
+//   for (let i = 0; i < arr.length; i++) {
+//     if (arr[i] === item) return "your item was found"; 
+//   }
+//   return "not found";
+// }
+
+console.log(linearSearch([1,2,3,4,5], 5));
