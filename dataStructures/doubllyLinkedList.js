@@ -54,7 +54,7 @@ class DoublyLinkedList {
     return oldHead;
   }
   get(index) {
-    if (index < 0 || index <= this.length) return null;
+    if (index < 0 || index >= this.length) return null;
     var count, current;
     if (index <= this.length / 2) {
       count = 0;
