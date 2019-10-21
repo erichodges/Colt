@@ -12,8 +12,9 @@ class DoublyLinkedList {
     this.tail = null;
     this.length = 0;
   }
+
   push(val) {
-    var newNode = new Node(val);
+    let newNode = new Node(val);
     if (this.length === 0) {
       this.head = newNode;
       this.tail = newNode;
@@ -23,25 +24,32 @@ class DoublyLinkedList {
       this.tail = newNode;
     }
     this.length++;
+
     return this;
   }
+
   pop() {
     if (!this.head) return undefined;
-    var poppedNode = this.tail;
+    let currentTail = this.tail;
+
     if (this.length === 1) {
       this.head = null;
       this.tail = null;
     } else {
-      this.tail = poppedNode.prev;
+      this.tail = currentTail.prev;
       this.tail.next = null;
-      poppedNode.prev = null;
+      currentTail.prev = null;
     }
     this.length--;
-    return poppedNode;
+
+    return currentTail;
   }
+
   shift() {
     if (this.length === 0) return undefined;
-    var oldHead = this.head;
+
+    let oldHead = this.head;
+
     if (this.length === 1) {
       this.head = null;
       this.tail = null;
@@ -51,29 +59,122 @@ class DoublyLinkedList {
       oldHead.next = null;
     }
     this.length--;
+
     return oldHead;
   }
-  get(index) {
-    if (index < 0 || index >= this.length) return null;
+
+  unshift(val) {
+    let newNode = new Node(val);
+
+    if (!this.head) {
+      this.head = newNode;
+      this.tail = this.head;
+    } else {
+      this.head.prev = newNode;
+      newNode.next = this.head;
+      this.head = newNode;
+    }
+    this.length++;
+
+    return this;
+  }
+
+  get(idx) {
+    if (idx < 0 || idx >= this.length) return null;
+
     var count, current;
-    if (index <= this.length / 2) {
-      count = 0;
+
+    if (idx <= this.length / 2) {
       current = this.head;
-      while (count !== index) {
+      count = 0;
+      while (count !== idx) {
         current = current.next;
         count++;
       }
     } else {
-      count = this.length - 1;
       current = this.tail;
-      while (count !== index) {
+      count = this.length - 1;
+      while (count !== idx) {
         current = current.prev;
         count--;
       }
     }
+
     return current;
+  }
+
+  set(idx, val) {
+    let foundNode = this.get(idx);
+    if (foundNode) {
+      foundNode.val = val;
+      return true;
+    }
+
+    return false;
+  }
+
+  insert(idx, val) {
+    if (idx < 0 || idx > this.length) return false;
+    if (idx === this.length) return !!this.push(val);
+    if (idx === 0) return !!this.unshift(val);
+
+    let newNode = new Node(val);
+    let beforeNode = this.get(idx - 1);
+    let afterNode = beforeNode.next;
+    beforeNode.next = newNode;
+    newNode.prev = beforeNode;
+    newNode.next = afterNode;
+    afterNode.prev = newNode;
+    this.length++;
+
+    return true;
+  }
+
+  remove(idx) {
+    if (idx < 0 || idx >= this.length) return false;
+    if (idx === this.length - 1) return !!this.pop();
+    if (idx === 0) return !!this.shift();
+
+    let removedNode = this.get(idx);
+    let beforeNode = removedNode.prev;
+    let afterNode = removedNode.next;
+    beforeNode.next = afterNode;
+    afterNode.prev = beforeNode;
+    removedNode.next = null;
+    removedNode.prev = null;
+    this.length--;
+
+    return removedNode;
+  }
+
+  reverse() {
+    // set head to tail and vice versa
+    let node = this.head;
+    this.head = this.tail;
+    this.tail = node;
+    // initialize pointer variables
+    let next;
+    let prev = null; // set to null so tail.next = null
+
+    for (let i = 0; i < this.length; i++) {
+      // save reference to next node
+      next = node.next;
+      // set current node next to previous node
+      node.next = prev;
+      node.prev = next;
+      // shift nodes - set current to previous
+      prev = node;
+      // set current to saved reference to next node
+      node = next;
+    }
+
+    return this;
   }
 }
 
-var list = new DoublyLinkedList();
-list.push("yo");
+let list = new DoublyLinkedList();
+list.push('Harry');
+list.push('Ron');
+list.push('Hermione');
+console.log(list);
+console.log(list.reverse());
