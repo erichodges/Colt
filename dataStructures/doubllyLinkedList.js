@@ -178,3 +178,21 @@ list.push('Ron');
 list.push('Hermione');
 console.log(list);
 console.log(list.reverse());
+
+
+/*   /////// Pseudocode
+Push
+
+
+Pop
+If there is no head, return undefined
+Store current tail in a var to return later
+If length is 1, set the head and tail to be null
+Update the tail to be the previous node
+Set the newTail's next to null
+Decrement 1 from length
+Return the value removed
+
+
+
+*/
